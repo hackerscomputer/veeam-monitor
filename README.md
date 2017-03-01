@@ -8,6 +8,6 @@ For example run "veeam-monitor.exe 3" generate:
 if Backup is not older then 3 day otherwise it generate 
   "Error" "Last Backup: xxx hour/day ago"
 
-It also handle some warning and error
+It also handle some warning and error and no backup information
 
 Inside "Veeam Monitor" Event Folder there is always one single event
