@@ -1,5 +1,5 @@
 # veeam-monitor
-Build to monitor Veeam Endpoint/Agent event with Atera and IT Automation
+Build to monitor Veeam Endpoint/Agent event with Atera/IT Automation/Threshold
 
 Read last Veeam Endpoint/Agent event, process and generate new, single, event on "Veeam Monitor" Event folder. 
 
@@ -13,3 +13,7 @@ It also handle some warning and error and no backup information
 It also return same information as script output to handle in report view
 
 Inside "Veeam Monitor" Event Folder there is always one single event
+
+Atera: Run script with X day parameter in IT Automation, then set in Threshold Profiles
+   Create critical alert for Veeam Monitor/900 event source
+   Create warning alert for Veeam Monitor/900 event source
