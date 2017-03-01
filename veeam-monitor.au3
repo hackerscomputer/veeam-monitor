@@ -14,7 +14,12 @@
 #include <Misc.au3>
 #AutoIt3Wrapper_Change2CUI=Y
 
-; Crea Cartella Eventi ServerMonitor
+Global $g_idMemo, $text_message, $var_veeam = '1'
+Local $veeam_msg = '', $veeam_status = 9, $veeam_date, $veeam_type
+
+;====================================================================================
+; Initialize Event Folder Veeam Monitor
+;====================================================================================
 RegWrite("HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\EventLog\Veeam Monitor\Veeam Monitor", "CustomSource", "REG_DWORD", "1")
 RegWrite("HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\EventLog\Veeam Monitor\Veeam Monitor", "EventMessageFile", "REG_EXPAND_SZ", "%SystemRoot%\System32\EventCreate.exe")
 RegWrite("HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\EventLog\Veeam Monitor", "Sources", "REG_MULTI_SZ", "Veeam Monitor")
@@ -22,10 +27,10 @@ RegWrite("HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\EventLog\Veeam Mo
 RegWrite("HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\EventLog\Veeam Monitor", "Retention", "REG_DWORD", "0")
 RegWrite("HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\EventLog\Veeam Monitor", "MaxSize", "REG_DWORD", "524288")
 
-Global $g_idMemo, $text_message, $var_veeam = '1'
-Local $veeam_msg = '', $veeam_status = 9, $veeam_date, $veeam_type
-
-
+;====================================================================================
+;       command line parameters
+;       $CmdLine[1] = $veeam_error = day after last successful backup result in error
+;====================================================================================
 Global $veeam_error = 1
 If $CmdLine[0] <> 0 Then
 	$veeam_error = $CmdLine[1]
@@ -34,10 +39,10 @@ EndIf
 _Veeam()
 
 ;====================================================================================
-;       Leggi Stato Veeam e restituisci valore ok/ko e Stato
-;       $veeam_status = 1 - ok, Backup Completato
-;       $veeam_status = 2 - warning, Backup in Corso
-;       $veeam_status = 3 - warning, Backup Error!
+;       Read Veeam Status
+;       $veeam_status = 1 - ok, Backup Completed
+;       $veeam_status = 2 - warning, Backup is running
+;       $veeam_status = 3 - warning, Backup error!
 ;====================================================================================
 Func _Veeam()
 	Local $temp_value = ''
