@@ -1,9 +1,13 @@
 # veeam-monitor
-Create to Monitor Veeam Endpoint (Agent/Backup) Event with Atera:
+Build to monitor Veeam Endpoint/Agent event with Atera:
 
-Read last Veeam Endpoint Backup Event, process and generate new, single, event on "Veeam Monitor" Event Folder. 
+Read last Veeam Endpoint/Agent event, process and generate new, single, event on "Veeam Monitor" Event folder. 
 
-For example run "veeam-monitor.exe 3" generate "Info" Event "Last Backup: xxx hour/day ago" if Backup is not older then 3 day otherwise it generate Error Event. It also handle some warning and error
+For example run "veeam-monitor.exe 3" generate:
+  "Info" "Last Backup: xxx hour/day ago"
+if Backup is not older then 3 day otherwise it generate 
+  "Error" "Last Backup: xxx hour/day ago"
+
+It also handle some warning and error
 
 Inside "Veeam Monitor" Event Folder there is always one single event
-
