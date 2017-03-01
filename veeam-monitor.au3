@@ -1,5 +1,4 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
-#AutoIt3Wrapper_Icon=favicon.ico
 #AutoIt3Wrapper_Change2CUI=Y
 #AutoIt3Wrapper_Res_Description=Veeam Monitor
 #AutoIt3Wrapper_Res_Fileversion=1.0.0.17
@@ -8,8 +7,6 @@
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
 #include <EventLog.au3>
 #include <GUIConstantsEx.au3>
-#include <WinAPIFiles.au3>
-#include <File.au3>
 #include <Constants.au3>
 #include <Misc.au3>
 #AutoIt3Wrapper_Change2CUI=Y
