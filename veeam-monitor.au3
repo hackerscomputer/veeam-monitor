@@ -1,7 +1,11 @@
+#AutoIt3Wrapper_Icon=favicon.ico
+#AutoIt3Wrapper_Res_Field=ProductName|Hackers Computer Veeam Monitor
+#AutoIt3Wrapper_Res_LegalCopyright=Hackers Di De Lorenzi Giorgia
+
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Change2CUI=Y
 #AutoIt3Wrapper_Res_Description=Veeam Monitor
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.17
+#AutoIt3Wrapper_Res_Fileversion=1.0.0.18
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=Y
 #AutoIt3Wrapper_Res_ProductVersion=1.0
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
@@ -25,7 +29,7 @@ RegWrite("HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\EventLog\Veeam Mo
 RegWrite("HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\EventLog\Veeam Monitor", "MaxSize", "REG_DWORD", "524288")
 
 ;====================================================================================
-;       command line parameters, pass only one, number of day = Error (default=1)
+;       command line parameters
 ;       $CmdLine[1] = $veeam_error = day after last successful backup result in error
 ;====================================================================================
 Global $veeam_error = 1
@@ -38,7 +42,7 @@ _Veeam()
 ;====================================================================================
 ;       Read Veeam Status
 ;       $veeam_status = 1 - ok, Backup Completed
-;       $veeam_status = 2 - warning, Backup is running ( usefull for freeze running backup )
+;       $veeam_status = 2 - warning, Backup is running
 ;       $veeam_status = 3 - warning, Backup error!
 ;====================================================================================
 Func _Veeam()
@@ -103,6 +107,14 @@ Func _Veeam()
 						$text_message = "Generic Warning"
 					EndIf
 				EndIf
+				$aArray = StringRegExp($veeam_msg, '[^\r\n]+finished with Error and will be retried.', $STR_REGEXPARRAYFULLMATCH)
+				If UBound($aArray) > 0 then
+					For $i = 0 To UBound($aArray) - 1
+						$text_message = "Backup finished with Error and will be retried"
+						$veeam_type	  = 1
+					Next
+				EndIf
+
 				_CreateEventLog($veeam_type,900,@CRLF & $text_message)
 
 			;Information
